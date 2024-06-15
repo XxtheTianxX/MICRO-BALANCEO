@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker:latest'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     stages {
         stage('Clonar el Repositorio'){
@@ -13,7 +18,7 @@ pipeline {
                     withCredentials([
                         string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                     ]) {
-                        docker.build('proyectos-micro:v1', '--build-arg MONGO_URI=${MONGO_URI} .')
+                        sh 'docker build -t proyectos-micro:v1 --build-arg MONGO_URI=${MONGO_URI} .'
                     }
                 }
             }
@@ -22,7 +27,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                            string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
+                        string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                     ]) {
                         sh 'docker-compose up -d'
                     }
@@ -42,3 +47,4 @@ pipeline {
         }
     }
 }
+
