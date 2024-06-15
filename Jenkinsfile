@@ -5,6 +5,7 @@ pipeline {
         stage('Clonar el Repositorio'){
             steps {
                 git branch: 'main', url: 'https://github.com/XxtheTianxX/MICRO-BALANCEO'
+                credentialsId: 'e3a53355-e39e-4294-a3d0-9aa2fba7bf08'
             }
         }
         stage('Construir imagen de Docker'){
