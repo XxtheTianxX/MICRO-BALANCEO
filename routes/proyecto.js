@@ -13,6 +13,7 @@ router.post('/', createProyecto)
 
 // consultar todos
 router.get('/', getProyectos)
+console.log('Peticion a getProyectos')
 
 
 router.put('/:id', updateProyectoByID)

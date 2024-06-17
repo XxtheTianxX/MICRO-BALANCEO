@@ -5,8 +5,10 @@ const TipoProyecto = require('../models/tipoProyecto')
 const Cliente = require('../models/cliente')
 
 // crear
+console.log('Peticion a getProyectos')
 const createProyecto = async (req = request, 
     res = response) => {
+        console.log('Peticion a getProyectos')
     try{
         const data = req.body
 
@@ -41,6 +43,7 @@ const createProyecto = async (req = request,
 //listar todos
 const getProyectos = async (req = request, 
     res = response) => {
+        console.log('Peticion a getProyectos')
         try{
             //select * from proyectos
             // join
@@ -62,6 +65,7 @@ const getProyectos = async (req = request,
 // actualizar 
 const updateProyectoByID = async (req = request, 
     res = response) => {
+        console.log('Peticion a getProyectos')
     try{
         const { id } = req.params
         const data = req.body

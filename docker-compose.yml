@@ -6,7 +6,7 @@ services :
     build :
       context: .
     ports : 
-      - "4004:4002"
+      - "4002"
     networks :
       - proyectos-app
     environment:
@@ -17,7 +17,7 @@ services :
     container_name : proyectos-micro-2
     image : proyectos-micro:v1
     ports : 
-      - "4005:4002"
+      - "4002"
     networks :
       - proyectos-app
     environment:
