@@ -1,15 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     stages {
         stage('Clonar el Repositorio'){
             steps {
-                git branch: 'main', url: 'https://github.com/XxtheTianxX/MICRO-BALANCEO'
+                git branch: 'origin/main', url: 'https://github.com/XxtheTianxX/MICRO-BALANCEO'
             }
         }
         stage('Construir imagen de Docker'){
@@ -18,7 +13,7 @@ pipeline {
                     withCredentials([
                         string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                     ]) {
-                        sh 'docker build -t proyectos-micro:v1 --build-arg MONGO_URI=${MONGO_URI} .'
+                        docker.build('proyectos-micro:v1', '--build-arg MONGO_URI=${MONGO_URI} .')
                     }
                 }
             }
@@ -27,7 +22,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([
-                        string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
+                            string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                     ]) {
                         sh 'docker-compose up -d'
                     }
@@ -41,7 +36,7 @@ pipeline {
             emailext (
                 subject: "Status del build: ${currentBuild.currentResult}",
                 body: "Se ha completado el build. Puede detallar en: ${env.BUILD_URL}",
-                to: "indira.hamdam@est.iudigital.edu.co",
+                to: "sebastian.gomezp@est.iudigital.edu.co",
                 from: "jenkins@iudigital.edu.co"
             )
         }
