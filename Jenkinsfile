@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Clonar el Repositorio'){
             steps {
-                git branch: 'main', url: 'https://github.com/XxtheTianxX/MICRO-BALANCEO'
-                credentialsId: 'e3a53355-e39e-4294-a3d0-9aa2fba7bf08'
+                git branch: 'main', url: 'https://github.com/julioiud/micro-2024ii.git'
             }
         }
         stage('Construir imagen de Docker'){
@@ -37,7 +36,7 @@ pipeline {
             emailext (
                 subject: "Status del build: ${currentBuild.currentResult}",
                 body: "Se ha completado el build. Puede detallar en: ${env.BUILD_URL}",
-                to: "sebastian.gomezp@est.iudigital.edu.co",
+                to: "indira.hamdam@est.iudigital.edu.co",
                 from: "jenkins@iudigital.edu.co"
             )
         }
